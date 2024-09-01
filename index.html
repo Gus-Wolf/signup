@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Customer Sign-Up Form</title>
+    <style>
+        .error-message {
+            color: red;
+            display: none;
+            font-size: 12px;
+            margin-top: 5px;
+            margin-bottom: 12px;
+        }
+    </style>
+    <script>
+        function fieldCheck(field) {
+            let errorMsg = field.nextElementSibling;
+
+            if (field.value.trim() === "") {
+                errorMsg.textContent = field.placeholder + " is required.";
+                errorMsg.style.display = "block";
+            } else {
+                errorMsg.style.display = "none";
+                if (field.name === "state" && !["PA", "NJ"].includes(field.value.trim())) {
+                    errorMsg.textContent = "State must be PA or NJ.";
+                    errorMsg.style.display = "block";
+                } else if (field.name === "zip" && !/^\d{9}$/.test(field.value.trim())) {
+                    errorMsg.textContent = "Zip code must be 9 digits.";
+                    errorMsg.style.display = "block";
+                } else {
+                    errorMsg.style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name="signup" style="display: flex; flex-direction: column; max-width: 400px; margin: auto;">
+        <div style="margin-bottom: 15px;">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required 
+                   onblur="fieldCheck(this)" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <div class="error-message"></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required 
+                   onblur="fieldCheck(this)" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <div class="error-message"></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" placeholder="Address" required 
+                   onblur="fieldCheck(this)" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <div class="error-message"></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" placeholder="City" required 
+                   onblur="fieldCheck(this)" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <div class="error-message"></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" placeholder="State" required 
+                   onblur="fieldCheck(this)" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <div class="error-message"></div>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="zip">Zip:</label>
+            <input type="text" id="zip" name="zip" placeholder="Zip" required 
+                   pattern="[0-9]{9}" onblur="fieldCheck(this)" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <div class="error-message"></div>
+        </div>
+        <button type="submit" style="padding: 10px 15px; font-size: 16px; cursor: pointer;">Submit</button>
+    </form>
+</body>
+</html>
